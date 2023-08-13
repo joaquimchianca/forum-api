@@ -1,6 +1,7 @@
 package br.joaquim.forum.service.topic
 
 import br.joaquim.forum.model.topic.Topic
+import br.joaquim.forum.model.topic.dto.TopicInput
 import br.joaquim.forum.model.topic.dto.TopicUpdate
 import br.joaquim.forum.repository.topic.TopicRepository
 import org.springframework.stereotype.Service
@@ -9,32 +10,23 @@ import org.springframework.stereotype.Service
 class TopicServiceImpl(
     private val repository: TopicRepository
 ) : TopicService {
-    override fun findAll() {
-        repository.findAll()
+    override fun findAll(): List<Topic> {
+        return repository.findAll()
     }
 
-    override fun findById(id: Long) {
-        repository.getReferenceById(id)
+    override fun findById(id: Long): Topic {
+        return repository.getReferenceById(id)
     }
 
-    override fun create(entity: Topic) {
-        repository.save(entity)
+    override fun create(dto: TopicInput): Topic {
+        val topic = Topic().convertWhenCreate(dto)
+        return repository.save(topic)
     }
 
-    override fun update(id: Long, dto: TopicUpdate) {
-        val old = repository.getReferenceById(id)
-        val new = Topic(
-            id = old.id,
-            title = dto.title,
-            text = dto.text,
-            dateCreated = old.dateCreated,
-            status = old.status,
-            author = old.author,
-            category = old.category,
-            answers = old.answers
-        )
-        repository.delete(old)
-        repository.save(new)
+    override fun update(id: Long, dto: TopicUpdate): Topic {
+        val topic = repository.getReferenceById(id)
+        topic.convertUpdate(dto)
+        return repository.save(topic)
     }
 
     override fun delete(entity: Topic) {
