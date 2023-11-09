@@ -2,6 +2,7 @@ package br.joaquim.forum.model.topic
 
 import br.joaquim.forum.model.topic.dto.TopicInput
 import br.joaquim.forum.model.topic.dto.TopicUpdate
+import br.joaquim.forum.model.topic.dto.TopicView
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import java.time.LocalDateTime
@@ -10,7 +11,8 @@ import java.time.LocalDateTime
 @Table(name = "tb_topic")
 data class Topic(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
     private var title: String = "",
     @Column(columnDefinition = "TEXT")
     private var text: String = "",
@@ -35,5 +37,11 @@ data class Topic(
     fun convertUpdate(dto: TopicUpdate) {
         this.title = dto.title
         this.text = dto.text
+    }
+
+    fun mapToView(): TopicView {
+        return TopicView(
+            this.id, this.title, this.text, this.author, this.category, this.status, this.dateCreated
+        )
     }
 }
