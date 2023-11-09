@@ -10,3 +10,12 @@ for backend programming using Kotlin instead of Java.
 by the tech industry.
  - **H2 Database**: a lightweight in-memory database designed to simulate the behavior of a SQL
 database. Most used in development environment.
+### To-do
+ - [ ] Pagination and cache in Topic Controller. Need to learn how to implement 
+a real cache service (Cache must be here to be an API).
+ - [ ] Filter on topic search (category)
+ - [ ] CRUD User
+ - [ ] CRUD Category
+ - [ ] CRUD Answers
+ - [ ] JWT Token (security)
+ - [ ] Change DB. Create migrations
