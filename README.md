@@ -13,6 +13,7 @@ database. Most used in development environment.
 ### To-do
  - [ ] Pagination and cache in Topic Controller. Need to learn how to implement 
 a real cache service (Cache must be here to be an API).
+ - [ ] Fix bean validation on TopicUpdate
  - [ ] Filter on topic search (category)
  - [ ] CRUD User
  - [ ] CRUD Category
